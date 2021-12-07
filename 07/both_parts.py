@@ -1,5 +1,5 @@
-from math import ceil, fabs
-from statistics import median
+from math import ceil, fabs, floor
+from statistics import mean, median
 from typing import List
 
 
@@ -22,10 +22,10 @@ horizontal_positions = list(map(int, lines[0].split(',')))
 median_position = int(round(median(horizontal_positions)))
 part_1_fuel_cost = linear_cost(horizontal_positions, median_position)
 
-# according to my napkin calculations the best position is somewhere
-# in the interval [mean - nr_crabs / 2, mean + nr_crabs / 2]
-variance = ceil(len(horizontal_positions) / 2)
-interval = range(median_position - variance, median_position + variance + 1)
+# according to my calculations the best position is somewhere
+# in the interval [mean - 1/2, mean + 1/2]
+mean_position = mean(horizontal_positions)
+interval = range(floor(mean_position - 1/2), ceil(mean_position + 1/2) + 1)
 part_2_fuel_cost = min(ladder_cost(horizontal_positions, position) for position in interval)
 
 print(part_1_fuel_cost, part_2_fuel_cost)
